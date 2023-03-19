@@ -1,14 +1,12 @@
 
-public class Moneda {
+public class Temperatura {
 
     private String nombre;
     private String simbolo;
-    private Double tasaCambio;
 
-    public Moneda(String nombre, String simbolo, Double tasaCambio) {
+    public Temperatura(String nombre, String simbolo) {
         this.nombre = nombre;
         this.simbolo = simbolo;
-        this.tasaCambio = tasaCambio;
     }
 
     public String getNombre() {
@@ -25,14 +23,6 @@ public class Moneda {
 
     public void setSimbolo(String simbolo) {
         this.simbolo = simbolo;
-    }
-
-    public Double getTasaCambio() {
-        return tasaCambio;
-    }
-
-    public void setTasaCambio(Double tasaCambio) {
-        this.tasaCambio = tasaCambio;
     }
 
 }

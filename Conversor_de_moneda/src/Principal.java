@@ -12,17 +12,6 @@ public class Principal {
         // Para que el programa se ejecute hasta que el usuario decida
         boolean ejecutar = true;
 
-        // Creando instancias de monedas con tasa de cambio al 15 marzo 2023
-        Moneda sol = new Moneda("Sol peruano", "PEN", 1.0);
-        Moneda usd = new Moneda("Dólar estadounidense", "USD", 3.79);
-        Moneda eur = new Moneda("Euro", "EUR", 4.02);
-        Moneda gbp = new Moneda("Libra esterlina", "GBP", 4.58);
-        Moneda jpy = new Moneda("Yen japones", "JPY", 0.029);
-        Moneda krw = new Moneda("Won surcoreano", "KRW", 0.0029);
-
-        // Creando instancia del conversor con la moneda base en SOL peruano
-        ConvMoneda convMoneda = new ConvMoneda(sol);
-
         // Definiendo las opciones de conversion
         String[] opcionesConv = {
             "Conversor de Moneda",
@@ -38,9 +27,21 @@ public class Principal {
             switch (opcConv) {
                 // Caso conversor de monedas
                 case "Conversor de Moneda":
+
                     boolean valido = false;
                     Double cantidad = 0.0;
                     String cantConv = "";
+
+                    // Creando instancias de monedas con tasa de cambio al 15 marzo 2023
+                    Moneda sol = new Moneda("Sol peruano", "PEN", 1.0);
+                    Moneda usd = new Moneda("Dólar estadounidense", "USD", 3.79);
+                    Moneda eur = new Moneda("Euro", "EUR", 4.02);
+                    Moneda gbp = new Moneda("Libra esterlina", "GBP", 4.58);
+                    Moneda jpy = new Moneda("Yen japones", "JPY", 0.029);
+                    Moneda krw = new Moneda("Won surcoreano", "KRW", 0.0029);
+
+                    // Creando instancia del conversor con la moneda base en SOL peruano
+                    ConvMoneda convMoneda = new ConvMoneda(sol);
 
                     //Recibimos y verificamos la cantidad de dinero a convertir
                     while (!valido) {
@@ -117,7 +118,74 @@ public class Principal {
 
                 // Caso conversor de temperatura
                 case "Conversor de Temperatura":
-                    System.out.println("temp");
+
+                    // Creando instancias de temperatura
+                    Temperatura c = new Temperatura("Celsius", "C");
+                    Temperatura f = new Temperatura("Fahrenheit", "F");
+                    Temperatura k = new Temperatura("Kelvin", "K");
+
+                    // Creando instancia del conversor con la temperatura base en Celsius
+                    ConvTemperatura convTemperatura = new ConvTemperatura(c);
+
+                    boolean validado = false;
+                    Double temperatura = 0.0;
+                    String tempConv = "";
+
+                    //Recibimos y verificamos la cantidad de dinero a convertir
+                    while (!validado) {
+                        String input = (String) JOptionPane.showInputDialog(null,
+                                "Ingrese la temperatura que deseas convertir:",
+                                "Input", JOptionPane.QUESTION_MESSAGE);
+                        try {
+                            temperatura = Double.valueOf(input);
+                            validado = true;
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null,
+                                    "Error: Ingrese una temperatura válida",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+
+                    //Definiendo las opciones de conversion de temperatura
+                    String[] opcionesConvTemp = {
+                        "De Celsius a Fahrenheit",
+                        "De Celsius a Kelvin",
+                        "De Fahrenheit a Celsius",
+                        "De Fahrenheit a Kelvin",
+                        "De Kelvin a Celsius",
+                        "De Kelvin a Fahrenheit"};
+
+                    //Seleccion del tipo de temperatura origen y destino para la conversion
+                    String opcTipoTemp = (String) JOptionPane.showInputDialog(null,
+                            "Elige la temperatura a la que decides convertir:",
+                            "Monedas", JOptionPane.DEFAULT_OPTION, null,
+                            opcionesConvTemp, opcionesConvTemp[0]);
+
+                    switch (opcTipoTemp) {
+                        case "De Celsius a Fahrenheit":
+                            tempConv = convTemperatura.convertirCaF(temperatura) + " " + f.getSimbolo();
+                            break;
+                        case "De Celsius a Kelvin":
+                            tempConv = convTemperatura.convertirCaK(temperatura) + " " + k.getSimbolo();
+                            break;
+                        case "De Fahrenheit a Celsius":
+                            tempConv = convTemperatura.convertirFaC(temperatura) + " " + c.getSimbolo();
+                            break;
+                        case "De Fahrenheit a Kelvin":
+                            tempConv = convTemperatura.convertirFaK(temperatura) + " " + k.getSimbolo();
+                            break;
+                        case "De Kelvin a Celsius":
+                            tempConv = convTemperatura.convertirKaC(temperatura) + " " + c.getSimbolo();
+                            break;
+                        case "De Kelvin a Fahrenheit":
+                            tempConv = convTemperatura.convertirKaF(temperatura) + " " + f.getSimbolo();
+                            break;
+                    }
+
+                    // Mostrando el resultado de la conversion
+                    JOptionPane.showMessageDialog(null, tempConv, "Message",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    
                     break;
             }
 
